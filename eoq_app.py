@@ -1,7 +1,7 @@
 import streamlit as st
 import math
 
-# Fungsi EOQ
+# Fungsi menghitung EOQ
 def hitung_eoq(D, S, H):
     eoq = math.sqrt((2 * D * S) / H)
     total_biaya = (D / eoq) * S + (eoq / 2) * H
@@ -11,48 +11,58 @@ def hitung_eoq(D, S, H):
 # Konfigurasi halaman
 st.set_page_config(page_title="EOQ Optimizer", page_icon="📦", layout="wide")
 
-# Header aplikasi
-st.markdown("<h1 style='text-align: center;'>📦 EOQ Optimizer</h1>", unsafe_allow_html=True)
-st.markdown("<h4 style='text-align: center; color: gray;'>Economic Order Quantity Calculator</h4>", unsafe_allow_html=True)
-st.markdown("---")
+# Judul dan Deskripsi Aplikasi
+st.markdown("""
+    <div style='text-align: center; padding: 10px'>
+        <h1 style='color:#2c3e50;'>📦 EOQ Optimizer App</h1>
+        <h4 style='color:gray;'>Economic Order Quantity Calculator for Inventory Efficiency</h4>
+        <hr style='border: 1px solid #bbb;'>
+    </div>
+""", unsafe_allow_html=True)
 
-# Layout input dan penjelasan
-col1, col2 = st.columns([1, 2])
-
+# Layout input dan info
+col1, col2 = st.columns([1, 1.2])
 with col1:
-    st.header("🔧 Input Data")
-    D = st.number_input("📦 Permintaan Tahunan (unit)", min_value=1.0, value=10000.0)
-    S = st.number_input("📋 Biaya Pemesanan per Pesanan (Rp)", min_value=1.0, value=250000.0)
-    H = st.number_input("🏬 Biaya Penyimpanan per Unit per Tahun (Rp)", min_value=1.0, value=1500.0)
+    with st.container():
+        st.markdown("### 🔧 Masukkan Data")
+        D = st.number_input("📦 Permintaan Tahunan (unit)", min_value=1.0, value=10000.0)
+        S = st.number_input("📋 Biaya Pemesanan per pesanan (Rp)", min_value=1.0, value=250000.0)
+        H = st.number_input("🏬 Biaya Penyimpanan per unit per tahun (Rp)", min_value=1.0, value=1500.0)
 
 with col2:
-    st.info("""
-    **📘 Apa itu EOQ?**  
-    Economic Order Quantity adalah jumlah pembelian optimal untuk meminimalkan total biaya persediaan (biaya pemesanan + penyimpanan).
-    
-    Model ini cocok untuk sistem persediaan yang stabil dan terprediksi.
-    """)
+    with st.expander("📘 Apa itu EOQ?", expanded=True):
+        st.markdown("""
+        **EOQ (Economic Order Quantity)** adalah metode untuk menghitung jumlah unit yang harus dipesan setiap kali pemesanan
+        untuk meminimalkan biaya total persediaan (biaya pemesanan dan biaya penyimpanan).
+        
+        Rumus:
+        \n
+        \[
+        EOQ = \\sqrt{\\frac{2DS}{H}}
+        \]
+        """)
 
-st.markdown("---")
-
-# Tombol hitung
-if st.button("🚀 Hitung EOQ Sekarang!"):
+# Tombol perhitungan
+if st.button("🚀 Hitung EOQ Sekarang!", use_container_width=True):
     eoq, total_biaya, jumlah_pesanan = hitung_eoq(D, S, H)
 
-    st.subheader("📊 Hasil Perhitungan")
-    c1, c2, c3 = st.columns(3)
+    st.markdown("---")
+    st.markdown("## 📊 Hasil Perhitungan")
 
-    with c1:
-        st.metric(label="EOQ (Jumlah Pesanan Optimal)", value=f"{eoq:.2f} unit", delta=None)
+    # Tampilan hasil dengan 3 kolom metrik
+    col_a, col_b, col_c = st.columns(3)
+    col_a.metric("📦 EOQ Optimal", f"{eoq:.2f} unit")
+    col_b.metric("📈 Jumlah Pesanan / Tahun", f"{jumlah_pesanan:.2f} kali")
+    col_c.metric("💰 Total Biaya Persediaan", f"Rp {total_biaya:,.2f}")
 
-    with c2:
-        st.metric(label="Jumlah Pemesanan per Tahun", value=f"{jumlah_pesanan:.2f} kali")
-
-    with c3:
-        st.metric(label="Total Biaya Persediaan", value=f"Rp {total_biaya:,.2f}")
-
-    st.success("✅ Perhitungan berhasil! Gunakan EOQ sebagai acuan untuk mengelola stok secara efisien.")
-
+    st.success("✅ Perhitungan selesai. Gunakan hasil EOQ untuk merencanakan persediaan Anda secara efisien.")
 else:
-    st.warning("Klik tombol 'Hitung EOQ Sekarang!' untuk melihat hasil perhitungan.")
+    st.info("Isi semua input, lalu klik tombol di atas untuk menghitung EOQ.")
 
+# Footer
+st.markdown("""
+    <hr>
+    <div style='text-align: center; color: gray; font-size: small;'>
+        Dibuat dengan ❤️ oleh Tim Optimasi Logistik | EOQ Model v1.2
+    </div>
+""", unsafe_allow_html=True)
