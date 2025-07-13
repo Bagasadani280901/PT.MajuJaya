@@ -62,7 +62,7 @@ else:
 # Footer
 st.markdown("""
     <hr>
-    <div style='text-align: center; color: gray; font-size: small;'>
-        Dibuat dengan ❤️ oleh Tim Optimasi Logistik | EOQ Model v1.2
+    <div style='text-align: center; color: green; font-size: small;'>
+       DIBUAT BY BAGAS ADANI MUKTI
     </div>
 """, unsafe_allow_html=True)
