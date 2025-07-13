@@ -30,10 +30,17 @@ with col1:
         H = st.number_input("🏬 Biaya Penyimpanan per unit per tahun (Rp)", min_value=1.0, value=1500.0)
 
 with col2:
-    with st.expander( "PT. Maju Jaya adalah perusahaan dagang yang bergerak di bidang distribusi alat tulis kantor (ATK). Salah satu produk andalan mereka adalah kertas HVS A4, yang sangat dibutuhkan oleh pelanggan dari instansi pemerintahan, perkantoran, hingga sektor pendidikan.
-
-Manajer gudang ingin melakukan evaluasi terhadap sistem pengelolaan persediaan yang selama ini dilakukan berdasarkan perkiraan. Akibatnya, sering terjadi kelebihan atau kekurangan stok yang menyebabkan biaya tinggi. Untuk mengoptimalkan biaya, manajer memutuskan menggunakan pendekatan Economic Order Quantity (EOQ).
-")
+    with st.expander("📘 Apa itu EOQ?", expanded=True):
+        st.markdown("""
+        **EOQ (Economic Order Quantity)** adalah metode untuk menghitung jumlah unit yang harus dipesan setiap kali pemesanan
+        untuk meminimalkan biaya total persediaan (biaya pemesanan dan biaya penyimpanan).
+        
+        Rumus:
+        \n
+        \[
+        EOQ = \\sqrt{\\frac{2DS}{H}}
+        \]
+        """)
 
 # Tombol perhitungan
 if st.button("🚀 Hitung EOQ Sekarang!", use_container_width=True):
