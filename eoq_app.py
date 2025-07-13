@@ -36,9 +36,9 @@ with col2:
         Salah satu produk andalan mereka adalah kertas HVS A4, yang sangat dibutuhkan oleh pelanggan dari 
         instansi pemerintahan, perkantoran, hingga sektor pendidikan.
 
-Manajer gudang ingin melakukan evaluasi terhadap sistem pengelolaan persediaan yang selama ini dilakukan 
-berdasarkan perkiraan. Akibatnya, sering terjadi kelebihan atau kekurangan stok yang menyebabkan biaya tinggi. 
-Untuk mengoptimalkan biaya, manajer memutuskan menggunakan pendekatan Economic Order Quantity (EOQ).
+        Manajer gudang ingin melakukan evaluasi terhadap sistem pengelolaan persediaan yang selama ini dilakukan 
+        berdasarkan perkiraan. Akibatnya, sering terjadi kelebihan atau kekurangan stok yang menyebabkan biaya tinggi. 
+        Untuk mengoptimalkan biaya, manajer memutuskan menggunakan pendekatan Economic Order Quantity (EOQ).
 
         """)
 
