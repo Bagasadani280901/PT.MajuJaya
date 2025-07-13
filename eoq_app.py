@@ -63,6 +63,6 @@ else:
 st.markdown("""
     <hr>
     <div style='text-align: center; color: green; font-size: big;'>
-       ----------DIBUAT BY BAGAS ADANI MUKTI----------
+       ----------DIBUAT OLEH BAGAS ADANI MUKTI----------
     </div>
 """, unsafe_allow_html=True)
