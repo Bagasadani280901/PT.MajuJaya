@@ -1,34 +1,58 @@
 import streamlit as st
 import math
 
-# Fungsi untuk menghitung EOQ
+# Fungsi EOQ
 def hitung_eoq(D, S, H):
     eoq = math.sqrt((2 * D * S) / H)
     total_biaya = (D / eoq) * S + (eoq / 2) * H
     jumlah_pesanan = D / eoq
     return eoq, total_biaya, jumlah_pesanan
 
-# Judul aplikasi
-st.set_page_config(page_title="Aplikasi EOQ", page_icon="📦")
-st.title("📦 Aplikasi Perhitungan EOQ (Economic Order Quantity)")
+# Konfigurasi halaman
+st.set_page_config(page_title="EOQ Optimizer", page_icon="📦", layout="wide")
 
-st.markdown("""
-Aplikasi ini menghitung jumlah pemesanan optimal untuk meminimalkan biaya persediaan berdasarkan model EOQ.
-""")
+# Header aplikasi
+st.markdown("<h1 style='text-align: center;'>📦 EOQ Optimizer</h1>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: center; color: gray;'>Economic Order Quantity Calculator</h4>", unsafe_allow_html=True)
+st.markdown("---")
 
-# Input dari pengguna
-with st.sidebar:
+# Layout input dan penjelasan
+col1, col2 = st.columns([1, 2])
+
+with col1:
     st.header("🔧 Input Data")
-    D = st.number_input("Permintaan Tahunan (unit)", min_value=1.0, value=12000.0)
-    S = st.number_input("Biaya Pemesanan per pesanan (Rp)", min_value=1.0, value=500000.0)
-    H = st.number_input("Biaya Penyimpanan per unit per tahun (Rp)", min_value=1.0, value=2000.0)
+    D = st.number_input("📦 Permintaan Tahunan (unit)", min_value=1.0, value=10000.0)
+    S = st.number_input("📋 Biaya Pemesanan per Pesanan (Rp)", min_value=1.0, value=250000.0)
+    H = st.number_input("🏬 Biaya Penyimpanan per Unit per Tahun (Rp)", min_value=1.0, value=1500.0)
 
-# Tombol hitung EOQ
-if st.button("🔍 Hitung EOQ"):
-    eoq, total_biaya, jumlah_pesanan = hitung_eoq(D, S, H)
+with col2:
+    st.info("""
+    **📘 Apa itu EOQ?**  
+    Economic Order Quantity adalah jumlah pembelian optimal untuk meminimalkan total biaya persediaan (biaya pemesanan + penyimpanan).
     
-    # Output hasil perhitungan
-    st.subheader("📈 Hasil Perhitungan")
-    st.success(f"**EOQ (Jumlah Pesanan Optimal):** {eoq:.2f} unit")
-    st.info(f"**Jumlah Pemesanan per Tahun:** {jumlah_pesanan:.2f} kali")
-    st.warning(f"**Total Biaya Persediaan:** Rp{total_biaya:,.2f}")
+    Model ini cocok untuk sistem persediaan yang stabil dan terprediksi.
+    """)
+
+st.markdown("---")
+
+# Tombol hitung
+if st.button("🚀 Hitung EOQ Sekarang!"):
+    eoq, total_biaya, jumlah_pesanan = hitung_eoq(D, S, H)
+
+    st.subheader("📊 Hasil Perhitungan")
+    c1, c2, c3 = st.columns(3)
+
+    with c1:
+        st.metric(label="EOQ (Jumlah Pesanan Optimal)", value=f"{eoq:.2f} unit", delta=None)
+
+    with c2:
+        st.metric(label="Jumlah Pemesanan per Tahun", value=f"{jumlah_pesanan:.2f} kali")
+
+    with c3:
+        st.metric(label="Total Biaya Persediaan", value=f"Rp {total_biaya:,.2f}")
+
+    st.success("✅ Perhitungan berhasil! Gunakan EOQ sebagai acuan untuk mengelola stok secara efisien.")
+
+else:
+    st.warning("Klik tombol 'Hitung EOQ Sekarang!' untuk melihat hasil perhitungan.")
+
